@@ -7,7 +7,6 @@ using System.Threading.Tasks;
 using System.Windows.Forms;
 using System.Diagnostics;
 using System.Runtime.InteropServices;
-using vJoyInterfaceWrap;
 using System.Timers;
 using WindowsInput;
 using WindowsInput.Native;
@@ -15,21 +14,21 @@ namespace KBPS4
 {
     class Program {
 
-        [DllImport("C:\\Users\\yourt\\source\\repos\\KBPS4\\SDK\\lib\\amd64\\vJoyInterface.dll")]
+        [DllImport("vJoyInterface.dll")]
         static extern bool vJoyEnabled();
-        [DllImport("C:\\Users\\yourt\\source\\repos\\KBPS4\\SDK\\lib\\amd64\\vJoyInterface.dll")]
+        [DllImport("vJoyInterface.dll")]
         static extern bool isVJDExists(uint rid);
-        [DllImport("C:\\Users\\yourt\\source\\repos\\KBPS4\\SDK\\lib\\amd64\\vJoyInterface.dll")]
+        [DllImport("vJoyInterface.dll")]
         static extern ushort GetvJoyVersion();
-        [DllImport("C:\\Users\\yourt\\source\\repos\\KBPS4\\SDK\\lib\\amd64\\vJoyInterface.dll")]
+        [DllImport("vJoyInterface.dll")]
         static extern bool DriverMatch(IntPtr DllVer, IntPtr DrvVer);
-        [DllImport("C:\\Users\\yourt\\source\\repos\\KBPS4\\SDK\\lib\\amd64\\vJoyInterface.dll")]
+        [DllImport("vJoyInterface.dll")]
         static extern bool AcquireVJD(uint rid);
-        [DllImport("C:\\Users\\yourt\\source\\repos\\KBPS4\\SDK\\lib\\amd64\\vJoyInterface.dll")]
+        [DllImport("vJoyInterface.dll")]
         static extern bool ResetAll();
-        [DllImport("C:\\Users\\yourt\\source\\repos\\KBPS4\\SDK\\lib\\amd64\\vJoyInterface.dll")]
+        [DllImport("vJoyInterface.dll")]
         static extern bool SetBtn(bool value, uint rid, byte nBtn);
-        [DllImport("C:\\Users\\yourt\\source\\repos\\KBPS4\\SDK\\lib\\amd64\\vJoyInterface.dll")]
+        [DllImport("vJoyInterface.dll")]
         static extern bool SetContPov(int value, uint rid, byte nPov);
         string dlldir = System.IO.Path.GetDirectoryName(Application.ExecutablePath);
         
@@ -98,9 +97,9 @@ namespace KBPS4
             //Start = 8, X=0,
             IInputSimulator isim = new InputSimulator();
             KeyboardSimulator ksim = new KeyboardSimulator(isim);
-            Thread.Sleep(1000);
+            //Process speedrunnything = Process.GetProcessesByName("LiveSplit").FirstOrDefault();
+            //           SetForegroundWindow(speedrunnything.MainWindowHandle);
             SetForegroundWindow(PS_REMOTE.MainWindowHandle);
-            Thread.Sleep(250);
             SetContPov(-1, 1, 1);
             /*ksim.KeyDown(VirtualKeyCode.RETURN);
             waitFrames(1);
@@ -108,30 +107,33 @@ namespace KBPS4
             //Thread.Sleep(1000);
             //ksim.KeyPress(VirtualKeyCode.F8); Start and Split
             //TAS Starts Here
-            ksim.KeyDown(VirtualKeyCode.RETURN);
+            SetBtn(true, 1, 1);
             waitFrames(1);
-            ksim.KeyUp(VirtualKeyCode.RETURN);
-            waitFrames(61);
+            SetBtn(false, 1, 1);
+            waitFrames(80);
             for (var i = 0; i < 7; i++)
             {
                 SetContPov(directions_pov[2], 1, 1);
-                waitFrames(1);
+                waitFrames(2);
                 SetContPov(-1, 1, 1);
-                waitFrames(3);
+                waitFrames(2);
             }
-            waitFrames(2);
-            ksim.KeyDown(VirtualKeyCode.RETURN);
+            SetBtn(true, 1, 1);
             waitFrames(1);
-            ksim.KeyUp(VirtualKeyCode.RETURN);
+            SetBtn(false, 1, 1);
             waitFrames(15);
             SetContPov(directions_pov[4], 1, 1);
             waitFrames(1);
             SetContPov(-1, 1, 1);
-            waitFrames(15);
+            waitFrames(20);
             SetBtn(true, 1, 1);
             waitFrames(1);
             SetBtn(false, 1, 1);
-            waitFrames(215); 
+            waitFrames(230);
+            SetContPov(directions_pov[2], 1, 1);
+            waitFrames(1);
+            SetContPov(directions_pov[6], 1, 1);
+            waitFrames(1);
             SetContPov(-1, 1, 1);
             SetBtn(true, 1, 1);
             waitFrames(1);
@@ -140,33 +142,54 @@ namespace KBPS4
             SetBtn(true, 1, 1);
             waitFrames(1);
             SetBtn(false, 1, 1);
-            waitFrames(25);
-            SetBtn(true, 1, 1);
-            waitFrames(1);
-            SetBtn(false, 1, 1);
-            waitFrames(243);
-            SetBtn(true, 1, 1);
-            waitFrames(1);
-            SetBtn(false, 1, 1);
-            waitFrames(32);
-            SetContPov(directions_pov[6], 1, 1);
-            waitFrames(1);
-            SetBtn(true, 1, 7);
+            waitFrames(40);
+            SetContPov(directions_pov[8], 1, 1);
             waitFrames(2);
-            SetBtn(false, 1, 7);
             SetContPov(-1, 1, 1);
             waitFrames(1);
+            SetBtn(true, 1, 1);
+            waitFrames(1);
+            SetBtn(false, 1, 1);
+            waitFrames(183);
+            SetBtn(true, 1, 1);
+            waitFrames(1);
+            SetBtn(false, 1, 1);
+            waitFrames(38);
+            SetContPov(directions_pov[6], 1, 1);
+            SetBtn(true, 1, 8);
+            waitFrames(2);
+            SetBtn(false, 1, 8);
+            SetContPov(-1, 1, 1);
+            waitFrames(6);
             SetContPov(directions_pov[2], 1, 1);
             waitFrames(1);
             SetContPov(directions_pov[3], 1, 1);
             waitFrames(1);
             SetContPov(directions_pov[6], 1, 1);
-            SetBtn(true, 1, 4);
+            SetBtn(true, 1, 3);
             waitFrames(2);
             SetContPov(-1, 1, 1);
-            SetBtn(false, 1, 4);
- 
-
+            SetBtn(false, 1, 3);
+            waitFrames(15);
+            SetContPov(directions_pov[2], 1, 1);
+            waitFrames(1);
+            SetContPov(-1, 1, 1);
+            waitFrames(1);
+            SetContPov(directions_pov[2], 1, 1);
+            SetBtn(true, 1, 5);
+            waitFrames(1);
+            SetContPov(-1, 1, 1);
+            SetBtn(false, 1, 5);
+            waitFrames(100);
+            SetContPov(directions_pov[6], 1, 1);
+            waitFrames(1);
+            SetContPov(directions_pov[2], 1, 1);
+            waitFrames(1);
+            SetContPov(directions_pov[3], 1, 1);
+            SetBtn(true, 1, 5);
+            waitFrames(1);
+            SetBtn(false, 1, 5);
+            SetContPov(-1, 1, 1);
 
         }
     }
